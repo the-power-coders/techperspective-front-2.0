@@ -1,0 +1,57 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans&display=swap');
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale; 
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+h1, h2 {
+  font-family: 'DM Sans', sans-serif;
+  text-align:center;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+  padding: 10px;
+}
+
+.headerButtonSurvey {
+  grid-column: 1;
+  color: hotpink
+}
+
+.headerButtonAdmin {
+  grid-column: 6;
+  display: flex;
+  color: green;
+}
+
+#headerImage {
+  background-color: rgba(0, 0, 0, 0.781);
+  width:24rem;
+  
+  padding-left: 3rem;
+  padding-right: 3rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+ 
+}
+
+#authLogInButton {
+  margin-left:auto;
+  margin-right:auto;
+}
+
+#headerBackground {
+  background-color: rgba(0, 0, 0, 0.781);
+}
