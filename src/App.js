@@ -34,7 +34,6 @@ class App extends Component {
       const jwt = tokenResponse.__raw;
       let email = this.props.auth0.user.email
       let subDomain = this.getSubdomain(email);
-      console.log(subDomain);
       const axiosRequestConfig = {
         method: 'get',
         baseURL: process.env.REACT_APP_SERVER_URL,
@@ -162,6 +161,8 @@ class App extends Component {
       return config;
     }
   }
+
+  // 
   getSubdomain = (obj) => {
     let subDom = obj.slice(obj.indexOf('@'));
     return subDom;
@@ -173,6 +174,7 @@ class App extends Component {
 
 
   render() {
+    console.log(this.state.surveyData);
     return (
       <>
         <Router>
