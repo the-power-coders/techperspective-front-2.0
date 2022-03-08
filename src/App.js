@@ -22,7 +22,8 @@ class App extends Component {
       surveyId: null,
       error: false,
       surveyToGraph: [],
-      surveyIdList: []     
+      surveyIdList: [],
+      selectedSurvey: null    
     }
   }
   graphResults = (obj) =>{
@@ -56,6 +57,7 @@ class App extends Component {
     if (this.props.auth0.isAuthenticated) {
       const tokenResponse = await this.props.auth0.getIdTokenClaims();
       const jwt = tokenResponse.__raw;
+      console.log('!!!!!!Token Response', tokenResponse);
 
       const axiosRequestConfig = {
         method: 'get',
@@ -65,7 +67,8 @@ class App extends Component {
       }
       try {
         let result = await axios(axiosRequestConfig);
-        this.setState({ surveyIdList: result.data.surveyID });
+        console.log('!!!!!!!!!!result', result.data);
+        this.setState({ surveyIdList: result.data });
         this.setState({ error: false })
       } catch (error) {
         console.error("Data receive error: " + error);
@@ -79,6 +82,7 @@ class App extends Component {
     if (this.props.auth0.isAuthenticated) {
       const tokenResponse = await this.props.auth0.getIdTokenClaims();
       const jwt = tokenResponse.__raw;
+      
 
       const axiosRequestConfig = {
         method: 'delete',
@@ -97,6 +101,14 @@ class App extends Component {
         this.setState({ error: true });
       }
     }
+  }
+
+  handleSelectedSurvey = (event) => {
+    let selected = event.target.value;
+    this.setState({
+      selectedSurvey: selected
+    })
+
   }
 
   /* Ping server to create a new survey ID to enter into the survey Iframe*/
@@ -186,17 +198,19 @@ class App extends Component {
 
   componentDidMount() {
     
+    this.getSavedSurveyIds();
     this.getActiveSurvey();
   }
 
 
   render() {
+    console.log(this.state);
     return (
       <>
         <Router>
           <Header />
           <Routes>
-            <Route path="/admin" element={<Admin graphResults={this.graphResults} activeSurvey={this.state.activeSurvey} createNewSurvey={this.createNewSurvey} surveyData={this.state.surveyData} putActiveSurvey={this.putActiveSurvey} deleteSavedSurvey={this.deleteSavedSurvey} getActiveSurvey={this.getActiveSurvey} getSavedSurvey={this.getSavedSurvey} />} />
+            <Route path="/admin" element={<Admin graphResults={this.graphResults} activeSurvey={this.state.activeSurvey} createNewSurvey={this.createNewSurvey} surveyData={this.state.surveyData} putActiveSurvey={this.putActiveSurvey} deleteSavedSurvey={this.deleteSavedSurvey} getActiveSurvey={this.getActiveSurvey} getSavedSurvey={this.getSavedSurvey} surveyIdList={this.state.surveyIdList} handleSelectedSurvey={this.handleSelectedSurvey}/>} />
             <Route path="/results" element={<Results surveyToGraph= {this.state.surveyToGraph} getSavedSurvey={this.getSavedSurvey} surveyData={this.state.surveyData} />} />
             <Route path="/" element={<Survey activeSurvey={this.state.activeSurvey} />} />
             <Route path="/about" element={<AboutUs />} />
