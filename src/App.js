@@ -10,7 +10,7 @@ import {
   Routes,
   Route
 } from "react-router-dom";
-import axios from "axios"; 
+import axios from "axios";
 
 class App extends Component {
 
@@ -21,25 +21,27 @@ class App extends Component {
       surveyData: [],
       surveyId: null,
       error: false,
-      surveyToGraph: []      
+      surveyToGraph: []
     }
   }
-  graphResults = (obj) =>{
-    this.setState({surveyToGraph: obj})
+  graphResults = (obj) => {
+    this.setState({ surveyToGraph: obj })
   }
   /* Grab survey data from server, which grabs from db */
   getSavedSurvey = async () => {
     if (this.props.auth0.isAuthenticated) {
       const tokenResponse = await this.props.auth0.getIdTokenClaims();
       const jwt = tokenResponse.__raw;
-
+      let email = this.props.auth0.user.email
+      let subDomain = this.getSubdomain(email);
+      console.log(subDomain);
       const axiosRequestConfig = {
         method: 'get',
         baseURL: process.env.REACT_APP_SERVER_URL,
         url: '/survey',
-        headers: { "Authorization": `Bearer ${jwt}` }
+        headers: { "Authorization": `Bearer ${jwt}` },
+        params: { subDomain }
       }
-
       try {
         let result = await axios(axiosRequestConfig);
         this.setState({ surveyData: result.data });
@@ -96,20 +98,20 @@ class App extends Component {
     //   const tokenResponse = await this.props.auth0.getIdTokenClaims();
     //   const jwt = tokenResponse.__raw;
     // }
-      const axiosRequestConfig = {
-        method: 'get',
-        baseURL: process.env.REACT_APP_SERVER_URL,
-        url: `/active`,
-        // headers: { "Authorization": `Bearer ${jwt}` }
-      }
-      // const url = `${process.env.REACT_APP_SERVER_URL}/active`
-      try {
-        const activeSurvey = await axios(axiosRequestConfig);
-        this.setState({ activeSurvey: activeSurvey.data });
-      } catch (error) {
-        console.log(error, 'No Active Survey');
-      }
-    
+    const axiosRequestConfig = {
+      method: 'get',
+      baseURL: process.env.REACT_APP_SERVER_URL,
+      url: `/active`,
+      // headers: { "Authorization": `Bearer ${jwt}` }
+    }
+    // const url = `${process.env.REACT_APP_SERVER_URL}/active`
+    try {
+      const activeSurvey = await axios(axiosRequestConfig);
+      this.setState({ activeSurvey: activeSurvey.data });
+    } catch (error) {
+      console.log(error, 'No Active Survey');
+    }
+
   }
 
   /* Archive the survey */
@@ -129,24 +131,24 @@ class App extends Component {
         url: `/survey`,
         data: this.state.activeSurvey,
         headers: { "Authorization": `Bearer ${jwt}` }
-        
+
       }
 
       try {
-      
-      await axios(axiosRequestConfig);
-      this.getActiveSurvey();
+
+        await axios(axiosRequestConfig);
+        this.getActiveSurvey();
       } catch (error) {
-      console.log(error, 'could not archive survey');
+        console.log(error, 'could not archive survey');
       }
     }
     window.location.reload();
   }
 
-  
 
 
-//Adds Auth0 Integration
+
+  //Adds Auth0 Integration
   getConfig = async () => {
     if (this.props.auth0.isAuthenticated) {
       const res = await this.props.auth0.getIdTokenClaims();
@@ -154,15 +156,18 @@ class App extends Component {
       console.log(res);
       console.log(jwt);
       const config = {
-        headers: { "Authorization": `Bearer ${jwt}`},
+        headers: { "Authorization": `Bearer ${jwt}` },
       }
       console.log(config);
       return config;
     }
   }
+  getSubdomain = (obj) => {
+    let subDom = obj.slice(obj.indexOf('@'));
+    return subDom;
+  }
 
   componentDidMount() {
-    
     this.getActiveSurvey();
   }
 
@@ -174,7 +179,7 @@ class App extends Component {
           <Header />
           <Routes>
             <Route path="/admin" element={<Admin graphResults={this.graphResults} activeSurvey={this.state.activeSurvey} createNewSurvey={this.createNewSurvey} surveyData={this.state.surveyData} putActiveSurvey={this.putActiveSurvey} deleteSavedSurvey={this.deleteSavedSurvey} getActiveSurvey={this.getActiveSurvey} getSavedSurvey={this.getSavedSurvey} />} />
-            <Route path="/results" element={<Results surveyToGraph= {this.state.surveyToGraph} getSavedSurvey={this.getSavedSurvey} surveyData={this.state.surveyData} />} />
+            <Route path="/results" element={<Results surveyToGraph={this.state.surveyToGraph} getSavedSurvey={this.getSavedSurvey} surveyData={this.state.surveyData} />} />
             <Route path="/" element={<Survey activeSurvey={this.state.activeSurvey} />} />
             <Route path="/about" element={<AboutUs />} />
           </Routes>
