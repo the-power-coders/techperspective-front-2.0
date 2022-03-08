@@ -21,7 +21,8 @@ class App extends Component {
       surveyData: [],
       surveyId: null,
       error: false,
-      surveyToGraph: []      
+      surveyToGraph: [],
+      surveyIdList: []     
     }
   }
   graphResults = (obj) =>{
@@ -43,6 +44,28 @@ class App extends Component {
       try {
         let result = await axios(axiosRequestConfig);
         this.setState({ surveyData: result.data });
+        this.setState({ error: false })
+      } catch (error) {
+        console.error("Data receive error: " + error);
+        this.setState({ error: true });
+      }
+    }
+  }
+
+  getSavedSurveyIds = async () => {
+    if (this.props.auth0.isAuthenticated) {
+      const tokenResponse = await this.props.auth0.getIdTokenClaims();
+      const jwt = tokenResponse.__raw;
+
+      const axiosRequestConfig = {
+        method: 'get',
+        baseURL: process.env.REACT_APP_SERVER_URL,
+        url: '/surveyId',
+        headers: { "Authorization": `Bearer ${jwt}` }
+      }
+      try {
+        let result = await axios(axiosRequestConfig);
+        this.setState({ surveyIdList: result.data.surveyID });
         this.setState({ error: false })
       } catch (error) {
         console.error("Data receive error: " + error);
