@@ -1,7 +1,7 @@
-'use strict'
 
 import React from 'react';
 import { Container, Form } from 'react-bootstrap';
+
 
 class SurveyDropdown extends React.Component {
   render() {
