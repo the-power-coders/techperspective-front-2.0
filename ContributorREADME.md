@@ -108,4 +108,3 @@ Nic: Wanted to get aligned again with what the plan was and see it on a drawing.
 #### *Reminder: About me, Unique URLS, jwt code being consoled log in the back end shown on terminal*
 
 ### Afternoon Standup Wednesday, March 9, 2022
-
