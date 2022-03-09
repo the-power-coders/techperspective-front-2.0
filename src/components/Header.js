@@ -5,7 +5,7 @@ import Button from "react-bootstrap/Button";
 import Image from "react-bootstrap/Image";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-
+import LogoutButton from './LogoutButton';
 class Header extends Component {
   handleLoginClick = () => {
     console.log("Yay! You logged in");
@@ -29,9 +29,10 @@ class Header extends Component {
           
           {this.props.auth0.isAuthenticated ? 
        
-            <div  class="container">
+            <div  className="container">
+
               <Col>
-              <Link class="headerButtonSurvey" to="/">
+              <Link className="headerButtonSurvey" to="/">
                 <Button style={{height: '3rem', width: '11rem', backgroundColor: "#ea4444", marginLeft: "1rem", marginRight: "1rem"}} variant="primary">Show Survey</Button>
               </Link>
               </Col>
@@ -41,9 +42,13 @@ class Header extends Component {
               </Col>
 
               <Col>
-              <Link type="button" class="headerButtonAdmin" to="/Admin">
+              <Link type="button" className="headerButtonAdmin" to="/Admin">
                 <Button style={{height: '3rem', width: '11rem', marginLeft: "1rem"}} variant="light">Admin Panel</Button>
               </Link>
+              </Col>
+
+              <Col>
+                <LogoutButton/>
               </Col>
               
               <br></br>

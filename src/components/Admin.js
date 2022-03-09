@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 import SurveySummaryList from './SurveySummaryList';
 import ActiveSurveyContainer from './ActiveSurveyContainer';
 import ConfirmModal from './ConfirmModal';
@@ -12,6 +13,8 @@ class Admin extends Component {
         super(props);
         this.state = {
             showModal: false,
+            activeSurvey: null,
+            surveyIdList: []
         }
     }
 
@@ -23,24 +26,72 @@ class Admin extends Component {
         this.setState({ showModal: true })
     }
 
+    getSavedSurveyIds = async () => {
+        if (this.props.auth0.isAuthenticated) {
+            const tokenResponse = await this.props.auth0.getIdTokenClaims();
+            const jwt = tokenResponse.__raw;
+            let email = this.props.auth0.user.email
+            let subDomain = this.getSubdomain(email);
+            const axiosRequestConfig = {
+                method: 'get',
+                baseURL: process.env.REACT_APP_SERVER_URL,
+                url: '/surveyId',
+                headers: { "Authorization": `Bearer ${jwt}` },
+                params: { subDomain }
+            }
+            try {
+                let result = await axios(axiosRequestConfig);
+                this.setState({ surveyIdList: result.data });
+                this.setState({ error: false })
+            } catch (error) {
+                console.error("Data receive error: " + error);
+                this.setState({ error: true });
+            }
+        }
+    }
+
+    getActiveSurvey = async () => {
+        if (this.props.auth0.isAuthenticated) {
+            const tokenResponse = await this.props.auth0.getIdTokenClaims();
+            const jwt = tokenResponse.__raw;
+            
+            const axiosRequestConfig = {
+                method: 'get',
+                baseURL: process.env.REACT_APP_SERVER_URL,
+                url: `/active`,
+                headers: { "Authorization": `Bearer ${jwt}` }
+            }
+            // const url = `${process.env.REACT_APP_SERVER_URL}/active`
+            try {
+                const activeSurvey = await axios(axiosRequestConfig);
+                this.setState({ activeSurvey: activeSurvey.data });
+            } catch (error) {
+                console.log(error, 'No Active Survey');
+            }
+        }
+    }
+    getSubdomain = (obj) => {
+        let subDom = obj.slice(obj.indexOf('@'));
+        return subDom;
+      }
+      
     componentDidMount() {
-        console.log(this.props.auth0.isAuthenticated);
-        this.props.getActiveSurvey();
+        this.getActiveSurvey();
+        this.getSavedSurveyIds();
     }
     render() {
-        console.log("we are looking at Admin.js", this.props.auth0.isAuthenticated);
         return (
             <div>
-            <ConfirmModal showModal={this.state.showModal} closeModal={this.closeModal} putActiveSurvey={this.props.putActiveSurvey} />
+                <ConfirmModal showModal={this.state.showModal} closeModal={this.closeModal} putActiveSurvey={this.props.putActiveSurvey} />
                 {this.props.auth0.isAuthenticated ?
                     <>
-                        
-                        <ActiveSurveyContainer activeSurvey={this.props.activeSurvey} createNewSurvey={this.props.createNewSurvey} graphResults={this.props.graphResults} openModal={this.openModal} getActiveSurvey={this.props.getActiveSurvey} />
+
+                        <ActiveSurveyContainer activeSurvey={this.props.activeSurvey} createNewSurvey={this.props.createNewSurvey} graphResults={this.props.graphResults} openModal={this.openModal} getActiveSurvey={this.props.getActiveSurvey} surveyIdList={this.state.surveyIdList} handleSelectedSurvey={this.props.handleSelectedSurvey} />
                         <SurveySummaryList getSavedSurvey={this.props.getSavedSurvey} graphResults={this.props.graphResults} surveyData={this.props.surveyData} deleteSavedSurvey={this.props.deleteSavedSurvey} />
                     </>
-                    : 
-                    <Row style={{justifyContent: "center"}}>
-                    <LoginButton />
+                    :
+                    <Row style={{ justifyContent: "center" }}>
+                        <LoginButton />
                     </Row>}
             </div>
         )
