@@ -102,6 +102,34 @@ class App extends Component {
     }
   }
 
+  insertSurveyToDb = async (event) => {
+    if (this.props.auth0.isAuthenticated) {
+      const tokenResponse = await this.props.auth0.getIdTokenClaims();
+      const jwt = tokenResponse.__raw;
+      let email = this.props.auth0.user.email
+      let subDomain = this.getSubdomain(email);
+      let surveyID = event.target.surveyId.value;
+      let surveyName = event.target.surveyName.value;
+
+      const axiosRequestConfig = {
+        method: 'post',
+        baseURL: process.env.REACT_APP_SERVER_URL,
+        url: `/survey/create`,
+        headers: { "Authorization": `Bearer ${jwt}` },
+        params: { subDomain, surveyID, surveyName }
+
+      }
+
+      try {
+
+        await axios(axiosRequestConfig);
+        this.getActiveSurvey();
+      } catch (error) {
+        console.log(error, 'could not archive survey');
+      }
+    }
+  }
+
   getActiveSurvey = async () => {
     if (this.props.auth0.isAuthenticated) {
         const tokenResponse = await this.props.auth0.getIdTokenClaims();
@@ -192,6 +220,7 @@ class App extends Component {
                     getSavedSurveyIds={this.getSavedSurveyIds}
                     surveyIdList={this.state.surveyIdList}
                     handleSelectedSurvey={this.handleSelectedSurvey}
+                    insertSurveyToDb={this.insertSurveyToDb}
                   /> :
                   <Row style={{ justifyContent: "center" }}>
                     <LoginButton />
