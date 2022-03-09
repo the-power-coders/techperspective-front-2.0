@@ -76,7 +76,7 @@ class Admin extends Component {
       }
       
     componentDidMount() {
-        this.getActiveSurvey();
+        // this.getActiveSurvey();
         this.getSavedSurveyIds();
     }
     render() {

@@ -24,7 +24,7 @@ class App extends Component {
       error: false,
       surveyToGraph: [],
       activeSurvey: null,
-      selectedSurvey: null
+      selectedSurvey: null //213535497610053
     }
   }
   graphResults = (obj) => {
@@ -86,13 +86,13 @@ class App extends Component {
     let selected = event.target.value;
     this.setState({
       selectedSurvey: selected
-    })
-
+    });
+    this.createNewSurvey ();
   }
 
   /* Ping server to create a new survey ID to enter into the survey Iframe*/
   createNewSurvey = async () => {
-    let url = `${process.env.REACT_APP_SERVER_URL}/jotform`
+    let url = `${process.env.REACT_APP_SERVER_URL}/jotform?surveyID=${this.state.selectedSurvey}`
     try {
       const newSurveyObj = await axios.post(url);
       this.setState({ activeSurvey: newSurveyObj.data });
