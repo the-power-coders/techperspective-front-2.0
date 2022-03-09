@@ -105,4 +105,10 @@ Tanner: Blockers out of the way, tasks for the day is pretty light. Tanner will 
 
 Nic: Wanted to get aligned again with what the plan was and see it on a drawing.
 
-Reminder: About me.
+#### *Reminder: About me, Unique URLS, jwt code being consoled log in the back end shown on terminal*
+
+What did i do yesterday
+
+what did i'm doing today
+
+what are my blockers
