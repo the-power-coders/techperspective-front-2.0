@@ -1,7 +1,8 @@
 import { Component } from "react";
 import NewSurveyButton from "./NewSurveyButton";
 import ActiveSurvey from "./ActiveSurvey";
-import SurveyDropdown from "./SurveyDropdown"
+import SurveyDropdown from "./SurveyDropdown";
+import CreateSurveyForm from "./CreateSurveyForm";
 
 class ActiveSurveyContainer extends Component {
     componentDidMount() {
@@ -21,6 +22,7 @@ class ActiveSurveyContainer extends Component {
                 {/* dropdown goes here  props surveyIdList handleSelect*/}
 
                 <SurveyDropdown surveyIdList={this.props.surveyIdList} handleSelectedSurvey={this.props.handleSelectedSurvey}/>
+                <CreateSurveyForm insertSurveyToDb={this.props.insertSurveyToDb}/>
 
             </div>
             <br></br>
