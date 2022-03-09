@@ -30,12 +30,14 @@ class Admin extends Component {
         if (this.props.auth0.isAuthenticated) {
             const tokenResponse = await this.props.auth0.getIdTokenClaims();
             const jwt = tokenResponse.__raw;
-
+            let email = this.props.auth0.user.email
+            let subDomain = this.getSubdomain(email);
             const axiosRequestConfig = {
                 method: 'get',
                 baseURL: process.env.REACT_APP_SERVER_URL,
                 url: '/surveyId',
-                headers: { "Authorization": `Bearer ${jwt}` }
+                headers: { "Authorization": `Bearer ${jwt}` },
+                params: { subDomain }
             }
             try {
                 let result = await axios(axiosRequestConfig);
@@ -52,7 +54,7 @@ class Admin extends Component {
         if (this.props.auth0.isAuthenticated) {
             const tokenResponse = await this.props.auth0.getIdTokenClaims();
             const jwt = tokenResponse.__raw;
-
+            
             const axiosRequestConfig = {
                 method: 'get',
                 baseURL: process.env.REACT_APP_SERVER_URL,
@@ -68,7 +70,11 @@ class Admin extends Component {
             }
         }
     }
-
+    getSubdomain = (obj) => {
+        let subDom = obj.slice(obj.indexOf('@'));
+        return subDom;
+      }
+      
     componentDidMount() {
         this.getActiveSurvey();
         this.getSavedSurveyIds();
