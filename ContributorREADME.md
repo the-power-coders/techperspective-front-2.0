@@ -13,8 +13,8 @@ VISION
 - ![Wireframe](./images/Wireframe-2.0.png)
 - ![Domain Model](./images/Domain%20Model.png)
 - [User Stories](https://github.com/orgs/the-power-coders/projects/2)
-- [Public Rep]()
-- [Mozilla MDN Web Docs]()
+- [Public Docs](https://github.com/the-power-coders/Docs)
+- [Mozilla MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
 
 ### **Reflections and Comments**
 
@@ -57,3 +57,16 @@ Brian: Paid up with Tanner, excited to start coding. Learn the inner workings of
 Matt: I am super excited and anxious at the same time. Really want to get my hands on some code especially that delete as struggled on the assessment. I feel tired and rested at the same time.
 
 *Reminder, this project is a learning experience and not just another task to complete.*
+
+### Evening Wind Down Tuesday, March 8, 2022
+
+Matt and Nic:
+
+- Completed sort function using the Auth0 props to the all get methods.
+- Created a subdomain function to filter email address by their subdomain.
+- Added that to where it was required.
+Added logout button to header.
+
+Tanner and Brian:
+
+- Added post route.
