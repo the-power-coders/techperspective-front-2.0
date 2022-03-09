@@ -14,7 +14,6 @@ class SurveyDropdown extends React.Component {
             this.props.surveyIdList.map((survey, idx) => {
               return <option key={survey.surveyID + idx} value={survey.surveyID} >{survey.surveyName}</option>
             })
-
           }
           </Form.Select>
         </Form.Group>
