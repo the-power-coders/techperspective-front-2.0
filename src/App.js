@@ -24,7 +24,7 @@ class App extends Component {
       error: false,
       surveyToGraph: [],
       activeSurvey: null,
-      selectedSurvey: null //213535497610053
+      selectedSurvey: null  //213535497610053
     }
   }
   graphResults = (obj) => {
