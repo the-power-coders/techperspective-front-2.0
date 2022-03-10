@@ -105,8 +105,27 @@ Tanner: Blockers out of the way, tasks for the day is pretty light. Tanner will 
 
 Nic: Wanted to get aligned again with what the plan was and see it on a drawing.
 
-#### *Reminder: About me, Unique URLS, jwt code being consoled log in the back end shown on terminal*
+#### *Reminder: About me*
 
-### Afternoon Standup Wednesday, March 9, 2022
+### Evening Standup Wednesday, March 9, 2022
 
-Nic and Matt: 
+Completed delete modal with a safety check
+
+Added a footer and an about us link to the page.
+included an admin login to the header with the function
+
+Finished survey to the add survey form. The form box to create the survey.
+Finished the drop down.
+
+Implemented update route for notes. Added notes to schema and built the update route.
+
+- [X] Front END DEPLOYED!
+
+### Reminders/Todo's
+
+- [ ] Fixing the things we need to fix.
+- [ ] Input about us.
+- [ ] Debug the dropdown
+- [ ] Finish notes frontend method
+- [ ] Fix labeling on the chart
+- [ ] Color the chart
