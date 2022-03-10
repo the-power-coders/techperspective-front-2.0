@@ -4,9 +4,13 @@ import Button from 'react-bootstrap/Button';
 import DeleteButton from './DeleteButton';
 
 class DeleteModal extends Component {
-   
+
+    handleDeleteClick = () => {
+        this.props.deleteSavedSurvey(this.props.surveyData._id);
+        this.props.handleCloseModal();
+    }
     render() {
-      // console.log(this.props.surveyData);
+        // console.log(this.props.surveyData);
         return (
             <>
                 <Modal show={this.props.show} onHide={this.props.handleCloseModal}>
@@ -14,17 +18,13 @@ class DeleteModal extends Component {
                         <Modal.Title>Delete Survey</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                       Are you sure? This will delete this survey data for every!
+                        Are you sure? This will delete this survey data forever
                     </Modal.Body>
                     <Modal.Footer>
-                        <Button variant="danger" onClick={this.props.handleCloseModal}>
-                            Cancel
+                        <Button variant="danger" onClick={this.props.handleCloseModal}>Cancel
                         </Button>
-                        <DeleteButton 
-                          surveyData={this.props.surveyData} 
-                          deleteSavedSurvey={this.props.deleteSavedSurvey}
-                          handleCloseModal={this.props.handleCloseModal}
-                        />
+                        <Button onClick={this.handleDeleteClick}>Delete</Button>
+
                     </Modal.Footer>
                 </Modal>
             </>
