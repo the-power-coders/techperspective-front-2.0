@@ -13,10 +13,10 @@ export default class SurveySummaryList extends Component {
     return (
       <>
         <Accordion>
-          {this.props.surveyData.map((info) => {
+          {this.props.surveyData.filter(count => count.submissionCount > 0 && count.surveyID !== "000001" && count.surveyID !== "000002" && count.surveyID !== "000003" && count.surveyID !== "000004" && count.surveyID !== "000005").map((info) => {
             return (
               <Accordion.Item key={info._id} eventKey={info.surveyID}>
-                <Accordion.Header>Survey Date: {info.createdOn}</Accordion.Header>
+                <Accordion.Header>Survey Name: {info.surveyName} <br></br> Survey Date: {info.createdOn}</Accordion.Header>
                 <Accordion.Body style={{ textAlign: 'center' }}>
                   <Row>
                     <Col>Submission Count: {info.submissionCount}</Col>
