@@ -10,7 +10,6 @@ export default class SurveySummaryList extends Component {
     this.props.getSavedSurvey();
   }
   render() {
-    console.log('This is current surveyData: ',this.props.surveyData);
     return (
       <>
         <Accordion>
