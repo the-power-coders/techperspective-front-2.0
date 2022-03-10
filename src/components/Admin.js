@@ -98,7 +98,8 @@ class Admin extends Component {
               surveyIdList={this.state.surveyIdList}
               handleSelectedSurvey={this.props.handleSelectedSurvey}
               insertSurveyToDb={this.props.insertSurveyToDb}
-							handleUpdateSurvey={this.props.handleUpdateSurvey}
+			  handleUpdateSurvey={this.props.handleUpdateSurvey}
+              getSubdomain={this.props.getSubdomain}
 							/>
             <SurveySummaryList
               getSavedSurvey={this.props.getSavedSurvey}
