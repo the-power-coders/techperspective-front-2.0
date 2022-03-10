@@ -1,39 +1,68 @@
 {
   "data": [
     {
+      "name": "Brian Thornburg",
+      "bio": "Student and JavaScript developer at Code Fellows with a background in graphic design. Looking forward to landing my first job in tech to work with others on solving problems through the power of code. My activities outside of coding include spending time with my wife and son, cooking, gardening, creating visual art, playing video games and reading.",
+      "img": "Brian.jpeg",
+      "linkedin": "https://www.linkedin.com/in/brianthomasthornburg/",
+      "github": "https://github.com/briant3275"
+    },
+    {
+      "name": "Nicholas Mercado",
+      "bio": "Software Developer with a background in photography, design, and color. Creating websites that start from user input and put emphasis on usability, ease, and style. Working towards making interfaces more intuitive for all users.",
+      "img": "Nicholas.jpg",
+      "linkedin": "https://www.linkedin.com/in/nicholasmercado/",
+      "github": "https://github.com/Nicholas-Mercado"
+    },
+    {
+      "name": "Matt Rangel",
+      "bio": "I was a project manager for a large electrical construction company, and now a Software Developer. I have worked my way from being a laborer to a project manager in a decades time. In each role, I have been entrusted to guide teams and have worked successfully alongside some excellent people. I’m looking for that same environment within the tech field, so I can learn new skills and collaborate in solving problems.",
+      "img": "mRangel.jpg",
+      "linkedin": "https://www.linkedin.com/in/matthew-rangel/",
+      "github": "https://github.com/rangelMatt"
+     },
+     {
+      "name": "Tanner Percival",
+      "bio": "Hello My name is Tanner Percival. Seek fellowship among the stars!",
+      "img": "tanner.jpg",
+      "linkedin": "https://www.linkedin.com/in/tannerperc/",
+      "github": "https://github.com/Tanner253"
+    },
+    {
       "name": "Erik Savage",
       "bio": "JavaScript developer with a background in the design and manufacturing of automotive and consumer electronic products, that has an affinity for solving complex problems, making data driven decisions, and building user-centric tools, apps, and websites.",
-      "img": "/imgs/you.jpg",
+      "img": "Erik.jpg",
       "linkedin": "https://www.linkedin.com/in/erikksavage/",
       "github": "https://github.com/eriksavage"
     },
     {
       "name": "Emily Landers",
       "bio": "I have a dog.",
-      "img": "/imgs/you.jpeg",
+      "img": "Emily.jpg",
       "linkedin": "https://www.linkedin.com/in/emily-landers-9b672019b/",
       "github": "https://github.com/Emily-Landers"
     },
     {
       "name": "Michael Metcalf",
       "bio": "Hi, my name is Michael. I am coming into software development from the Army where I was for past 20 years. I enjoy the challenge of coding and am looking forward to a career as a software developer. I live in the Seattle area, Gig Harbor, with my wife and our dog. ",
-      "img": "/imgs/Metcalf_pic.jpeg",
+      "img": "Metcalf.jpg",
       "linkedin": "https://www.linkedin.com/in/mt-metcalf/",
       "github": "https://github.com/Metty82"
     },
     {
       "name": "Ryan Lee",
       "bio": "Aspiring software developer with a penchant for placeholder text, formerly in retail management. Fond of problem and puzzle solving, as well as building things that miraculously work. Work well in teams, and experience in retail has given me a lot of patience as well as communication proficiency.",
-      "img": "/imgs/lee.png",
+      "img": "lee.jpg",
       "linkedin": "https://www.linkedin.com/in/ryanyinlee/",
       "github": "https://github.com/ryanyinlee"
     },
     {
       "name": "Joseph 'Joey' Hernandez",
       "bio": "Hello there, my name is Joey, I go by Joey, so you can call me Joey. I am a budding software development engineer based in Seattle, WA. I am a professional brewer by trade and am making a shift to something more challenging. I am also a father to four kids, husband to one wife, and I like long walks in the woods. I really enjoy fixing problems in my code, and my goal is to become a great coder someday. In my spare time I like taking things apart, building computers, and tattoos, I love tattoos.",
-      "img": "/imgs/me.jpeg",
+      "img": "joe.jpg",
       "linkedin": "https://www.linkedin.com/in/jmhernandez2six/",
       "github": "https://github.com/JosephHernandez26"
     }
+    
   ]
 }
