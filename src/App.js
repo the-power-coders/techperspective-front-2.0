@@ -24,7 +24,7 @@ class App extends Component {
       error: false,
       surveyToGraph: [],
       activeSurvey: null,
-      selectedSurvey: null  //213535497610053
+      selectedSurvey: null
     }
   }
   graphResults = (obj) => {
@@ -46,7 +46,7 @@ class App extends Component {
       }
       try {
         let result = await axios(axiosRequestConfig);
-        this.setState({ surveyData: result.data });
+        this.setState({ surveyData: result.data});
         this.setState({ error: false })
       } catch (error) {
         console.error("Data receive error: " + error);
@@ -92,8 +92,23 @@ class App extends Component {
 
   /* Ping server to create a new survey ID to enter into the survey Iframe*/
   createNewSurvey = async () => {
-    let url = `${process.env.REACT_APP_SERVER_URL}/jotform?surveyID=${this.state.selectedSurvey}`
+    let email = this.props.auth0.user.email
+    let subDomain = this.getSubdomain(email);
+    let desiredSurvey = ""
+    //find the surveyID in surveyDATA where surveyData.surveyID === selectedSurvey
+    this.state.surveyData.forEach( item => {
+      if(item.surveyID === this.state.selectedSurvey){
+        desiredSurvey = item.surveyName;
+      }
+
+    })
+    console.log(desiredSurvey);
+
+  
+
+    let url = `${process.env.REACT_APP_SERVER_URL}/jotform?surveyID=${this.state.selectedSurvey}&surveyName=${desiredSurvey}&subDomain=${subDomain}`
     try {
+      console.log(url)
       const newSurveyObj = await axios.post(url);
       this.setState({ activeSurvey: newSurveyObj.data });
 
