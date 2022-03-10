@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import Row from 'react-bootstrap/Row';
-import LoginButton from './components/LoginButton';
+// import LoginButton from './components/LoginButton';
 import Header from './components/Header';
 import Survey from './components/Survey';
 import Admin from './components/Admin';
 import Results from './components/Results';
 import AboutUs from './components/AboutUs';
+import Footer from './components/Footer';
 import { withAuth0 } from '@auth0/auth0-react';
 import {
   BrowserRouter as Router,
@@ -46,7 +47,7 @@ class App extends Component {
       }
       try {
         let result = await axios(axiosRequestConfig);
-        this.setState({ surveyData: result.data });
+        this.setState({ surveyData: result.data});
         this.setState({ error: false })
       } catch (error) {
         console.error("Data receive error: " + error);
@@ -74,7 +75,7 @@ class App extends Component {
         await axios(axiosRequestConfig);
         const updatedSurveys = this.state.surveyData.filter((survey) => survey._id !== id);
         this.setState({ surveyData: updatedSurveys });
-
+        
       } catch (error) {
         console.error("Delete error: " + error);
         this.setState({ error: true });
@@ -82,23 +83,88 @@ class App extends Component {
     }
   }
 
+  handleUpdateSurvey = async (surveyToUpdate) =>{
+    try{
+      if (this.props.auth0.isAuthenticated) {
+        const tokenResponse = await this.props.auth0.getIdTokenClaims();
+        const jwt = tokenResponse.__raw;
+        console.log("survey", surveyToUpdate._id )
+        const axiosRequestConfig = {
+          method: 'put',
+          baseURL: process.env.REACT_APP_SERVER_URL,
+          url: `/survey/${surveyToUpdate._id}`,
+          headers: { "Authorization": `Bearer ${jwt}` },
+          data: surveyToUpdate
+        }
+        let createdSurvey = await axios(axiosRequestConfig);
+        this.setState({
+          activeSurvey: createdSurvey.data
+        })
+        console.log("test for update")
+        this.getSavedSurvey()
+      }
+    }catch(error){
+      console.log(error, 'Error with updating the survey');
+
+    }
+  }
+
   handleSelectedSurvey = (event) => {
     let selected = event.target.value;
     this.setState({
       selectedSurvey: selected
-    })
-
+    });
+    this.createNewSurvey ();
   }
 
   /* Ping server to create a new survey ID to enter into the survey Iframe*/
   createNewSurvey = async () => {
-    let url = `${process.env.REACT_APP_SERVER_URL}/jotform`
+    let email = this.props.auth0.user.email
+    let subDomain = this.getSubdomain(email);
+    let desiredSurvey = ""
+    //find the surveyID in surveyDATA where surveyData.surveyID === selectedSurvey
+    this.state.surveyData.forEach( item => {
+      if(item.surveyID === this.state.selectedSurvey){
+        desiredSurvey = item.surveyName;
+      }
+
+    })
+    console.log(desiredSurvey);
+
+  
+
+    let url = `${process.env.REACT_APP_SERVER_URL}/jotform?surveyID=${this.state.selectedSurvey}&surveyName=${desiredSurvey}&subDomain=${subDomain}`
     try {
+      console.log(url)
       const newSurveyObj = await axios.post(url);
       this.setState({ activeSurvey: newSurveyObj.data });
 
     } catch (error) {
       console.log(error, 'could not create new survey');
+    }
+  }
+
+  insertSurveyToDb = async (event) => {
+    if (this.props.auth0.isAuthenticated) {
+      const tokenResponse = await this.props.auth0.getIdTokenClaims();
+      const jwt = tokenResponse.__raw;
+      let subDomain = event.target.subDomain.value;
+      let surveyID = event.target.surveyId.value;
+      let surveyName = event.target.surveyName.value;
+
+      const axiosRequestConfig = {
+        method: 'post',
+        baseURL: process.env.REACT_APP_SERVER_URL,
+        url: `/survey/create`,
+        headers: { "Authorization": `Bearer ${jwt}` },
+        params: { subDomain, surveyID, surveyName }
+      }
+      try {
+        await axios(axiosRequestConfig);
+        this.getActiveSurvey();
+      } catch (error) {
+        console.log(error, 'could not archive survey');
+      }
     }
   }
 
@@ -113,7 +179,6 @@ class App extends Component {
             url: `/active`,
             headers: { "Authorization": `Bearer ${jwt}` }
         }
-        // const url = `${process.env.REACT_APP_SERVER_URL}/active`
         try {
             const activeSurvey = await axios(axiosRequestConfig);
             this.setState({ activeSurvey: activeSurvey.data });
@@ -128,20 +193,16 @@ class App extends Component {
     if (this.props.auth0.isAuthenticated) {
       const tokenResponse = await this.props.auth0.getIdTokenClaims();
       const jwt = tokenResponse.__raw;
-
       this.state.activeSurvey.active = false;
-
       const axiosRequestConfig = {
         method: 'post',
         baseURL: process.env.REACT_APP_SERVER_URL,
         url: `/survey`,
         data: this.state.activeSurvey,
         headers: { "Authorization": `Bearer ${jwt}` }
-
       }
 
       try {
-
         await axios(axiosRequestConfig);
         this.getActiveSurvey();
       } catch (error) {
@@ -170,7 +231,7 @@ class App extends Component {
   }
 
   render() {
-    console.log(this.state);
+    // console.log(this.state);
     return (
       <>
         <Router>
@@ -192,9 +253,12 @@ class App extends Component {
                     getSavedSurveyIds={this.getSavedSurveyIds}
                     surveyIdList={this.state.surveyIdList}
                     handleSelectedSurvey={this.handleSelectedSurvey}
+                    insertSurveyToDb={this.insertSurveyToDb}
+                    handleUpdateSurvey={this.handleUpdateSurvey}
+                    getSubdomain={this.getSubdomain}
                   /> :
                   <Row style={{ justifyContent: "center" }}>
-                    <LoginButton />
+                    {/* <LoginButton /> */}
                   </Row>
               }
             />
@@ -211,6 +275,7 @@ class App extends Component {
             <Route path="/" element={<Survey activeSurvey={this.state.activeSurvey} />} />
             <Route path="/about" element={<AboutUs />} />
           </Routes>
+          <Footer style={{ position:"absolute"}}/>
         </Router>
       </>
     )
