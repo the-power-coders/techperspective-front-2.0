@@ -6,6 +6,8 @@ class Footer extends Component {
     return(
       <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark" id="Footer">
         <Navbar.Brand id="foot" style={{margin: "left"}}  >©Codefellows and Melting-Pot Data + The-Power-Coders </Navbar.Brand>
+
+        <Navbar.Brand id="foot" style={{margin: "right"}} href="/about" >About Us</Navbar.Brand>
       </Navbar>
     )
   }
