@@ -129,3 +129,22 @@ Implemented update route for notes. Added notes to schema and built the update r
 - [ ] Finish notes frontend method
 - [ ] Fix labeling on the chart
 - [ ] Color the chart
+
+### Morning Standup Thursday, March 10, 2022
+
+- [ ] Fixing the things we need to fix.
+- [ ] Input about us.
+- [ ] Debug the dropdown
+- [ ] Finish notes frontend method
+- [ ] Fix labeling on the chart
+- [ ] Color the chart
+
+Brian:
+
+Attention to dropdown, looking at stretch goals after that if dropdown
+
+Tanner: Notes route, at the moment we can only affect the active survey notes.
+Got the form set up and data.
+Update method.
+
+Nicholas: Dropdown is doing interesting things and not understanding how to do these.
