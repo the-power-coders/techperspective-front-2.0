@@ -1,15 +1,14 @@
 import React, { Component } from "react";
 import { Accordion } from "react-bootstrap";
 import ResultsButton from "./ResultsButton";
-import DeleteButton from "./DeleteButton";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-
+import DeleteButton from "./DeleteButton";
 export default class SurveySummaryList extends Component {
 
   componentDidMount() {
     this.props.getSavedSurvey();
-  } 
+  }
   render() {
     return (
       <>
@@ -23,10 +22,13 @@ export default class SurveySummaryList extends Component {
                     <Col>Submission Count: {info.submissionCount}</Col>
                     <Col>Survey ID: {info.surveyID}</Col>
                     <Col>
-                      <ResultsButton surveyData = {info.results} graphResults = {this.props.graphResults}/>
+                      <ResultsButton surveyData={info.results} graphResults={this.props.graphResults} />
                     </Col>
                     <Col>
-                      <DeleteButton surveyData={info} deleteSavedSurvey={this.props.deleteSavedSurvey} />
+                      <DeleteButton
+                        surveyData={info}
+                        deleteSavedSurvey={this.props.deleteSavedSurvey}
+                      />
                     </Col>
                   </Row>
                 </Accordion.Body>
