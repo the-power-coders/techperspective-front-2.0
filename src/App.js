@@ -46,7 +46,7 @@ class App extends Component {
       }
       try {
         let result = await axios(axiosRequestConfig);
-        this.setState({ surveyData: result.data });
+        this.setState({ surveyData: result.data});
         this.setState({ error: false })
       } catch (error) {
         console.error("Data receive error: " + error);
@@ -86,19 +86,62 @@ class App extends Component {
     let selected = event.target.value;
     this.setState({
       selectedSurvey: selected
-    })
-
+    });
+    this.createNewSurvey ();
   }
 
   /* Ping server to create a new survey ID to enter into the survey Iframe*/
   createNewSurvey = async () => {
-    let url = `${process.env.REACT_APP_SERVER_URL}/jotform`
+    let email = this.props.auth0.user.email
+    let subDomain = this.getSubdomain(email);
+    let desiredSurvey = ""
+    //find the surveyID in surveyDATA where surveyData.surveyID === selectedSurvey
+    this.state.surveyData.forEach( item => {
+      if(item.surveyID === this.state.selectedSurvey){
+        desiredSurvey = item.surveyName;
+      }
+
+    })
+    console.log(desiredSurvey);
+
+  
+
+    let url = `${process.env.REACT_APP_SERVER_URL}/jotform?surveyID=${this.state.selectedSurvey}&surveyName=${desiredSurvey}&subDomain=${subDomain}`
     try {
+      console.log(url)
       const newSurveyObj = await axios.post(url);
       this.setState({ activeSurvey: newSurveyObj.data });
 
     } catch (error) {
       console.log(error, 'could not create new survey');
+    }
+  }
+
+  insertSurveyToDb = async (event) => {
+    if (this.props.auth0.isAuthenticated) {
+      const tokenResponse = await this.props.auth0.getIdTokenClaims();
+      const jwt = tokenResponse.__raw;
+      let email = this.props.auth0.user.email
+      let subDomain = this.getSubdomain(email);
+      let surveyID = event.target.surveyId.value;
+      let surveyName = event.target.surveyName.value;
+
+      const axiosRequestConfig = {
+        method: 'post',
+        baseURL: process.env.REACT_APP_SERVER_URL,
+        url: `/survey/create`,
+        headers: { "Authorization": `Bearer ${jwt}` },
+        params: { subDomain, surveyID, surveyName }
+
+      }
+
+      try {
+
+        await axios(axiosRequestConfig);
+        this.getActiveSurvey();
+      } catch (error) {
+        console.log(error, 'could not archive survey');
+      }
     }
   }
 
@@ -192,6 +235,7 @@ class App extends Component {
                     getSavedSurveyIds={this.getSavedSurveyIds}
                     surveyIdList={this.state.surveyIdList}
                     handleSelectedSurvey={this.handleSelectedSurvey}
+                    insertSurveyToDb={this.insertSurveyToDb}
                   /> :
                   <Row style={{ justifyContent: "center" }}>
                     <LoginButton />
