@@ -16,7 +16,7 @@ class DeleteModal extends Component {
                         <Modal.Title>Delete Survey</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        Are you sure? This will delete this survey data forever
+                        Are you sure? This will delete this survey data permanently
                     </Modal.Body>
                     <Modal.Footer>
                         <Button variant="danger" onClick={this.props.handleCloseModal}>Cancel
