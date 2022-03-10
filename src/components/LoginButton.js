@@ -6,7 +6,7 @@ class LoginButton extends Component {
 
   render() {
     return (
-      <Button style={{margin: "12rem", width: "12rem"}} variant="success" onClick={this.props.auth0.loginWithRedirect}>Log In</Button>
+      <Button style={{margin: "5%" , width: "8rem", background: "rgba(0, 0, 0, 0.781)"}}  onClick={this.props.auth0.loginWithRedirect}>Admin Log In</Button>
     )
   }
 }

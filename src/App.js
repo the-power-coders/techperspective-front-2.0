@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Row from 'react-bootstrap/Row';
-import LoginButton from './components/LoginButton';
+// import LoginButton from './components/LoginButton';
 import Header from './components/Header';
 import Survey from './components/Survey';
 import Admin from './components/Admin';
@@ -239,7 +239,7 @@ class App extends Component {
                     insertSurveyToDb={this.insertSurveyToDb}
                   /> :
                   <Row style={{ justifyContent: "center" }}>
-                    <LoginButton />
+                    {/* <LoginButton /> */}
                   </Row>
               }
             />

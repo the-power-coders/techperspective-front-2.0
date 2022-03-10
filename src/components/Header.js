@@ -6,6 +6,8 @@ import Image from "react-bootstrap/Image";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import LogoutButton from './LogoutButton';
+import LoginButton from './LoginButton';
+
 class Header extends Component {
   handleLoginClick = () => {
     console.log("Yay! You logged in");
@@ -17,44 +19,45 @@ class Header extends Component {
 
   render() {
     return (
-      <>  
-          <Row id="headerBackground" md={4} style={{justifyContent:"space-between"}}>
-          
-            <Col>
-          <Image
-            id="headerImage"
-            src="cf-logo-horizontal-2-color-white.png"
-          />
+      <>
+        <Row id="headerBackground" md={4} style={{ justifyContent: "space-between" }}>
+
+          <Col>
+            <Image
+              id="headerImage"
+              src="cf-logo-horizontal-2-color-white.png"
+            />
           </Col>
-          
-          {this.props.auth0.isAuthenticated ? 
-       
-            <div  className="container">
+
+          {this.props.auth0.isAuthenticated ?
+
+            <div className="container">
 
               <Col>
-              <Link className="headerButtonSurvey" to="/">
-                <Button style={{height: '3rem', width: '11rem', backgroundColor: "#ea4444", marginLeft: "1rem", marginRight: "1rem"}} variant="primary">Show Survey</Button>
-              </Link>
+                <Link className="headerButtonSurvey" to="/">
+                  <Button style={{ height: '3rem', width: '11rem', backgroundColor: "#ea4444", marginLeft: "1rem", marginRight: "1rem" }} variant="primary">Show Survey</Button>
+                </Link>
               </Col>
 
               <Col>
-              <br></br>
+                <br></br>
               </Col>
 
               <Col>
-              <Link type="button" className="headerButtonAdmin" to="/Admin">
-                <Button style={{height: '3rem', width: '11rem', marginLeft: "1rem"}} variant="light">Admin Panel</Button>
-              </Link>
+                <Link type="button" className="headerButtonAdmin" to="/Admin">
+                  <Button style={{ height: '3rem', width: '11rem', marginLeft: "1rem" }} variant="light">Admin Panel</Button>
+                </Link>
               </Col>
 
               <Col>
-                <LogoutButton/>
+                <LogoutButton />
               </Col>
-              
-              <br></br>
             </div>
-            
-           : <></>}
+            :
+            <Col>
+              <LoginButton />
+            </Col>
+          }
         </Row>
 
       </>
