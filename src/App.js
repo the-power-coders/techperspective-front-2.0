@@ -148,8 +148,7 @@ class App extends Component {
     if (this.props.auth0.isAuthenticated) {
       const tokenResponse = await this.props.auth0.getIdTokenClaims();
       const jwt = tokenResponse.__raw;
-      let email = this.props.auth0.user.email
-      let subDomain = this.getSubdomain(email);
+      let subDomain = event.target.subDomain.value;
       let surveyID = event.target.surveyId.value;
       let surveyName = event.target.surveyName.value;
 
@@ -256,6 +255,7 @@ class App extends Component {
                     handleSelectedSurvey={this.handleSelectedSurvey}
                     insertSurveyToDb={this.insertSurveyToDb}
                     handleUpdateSurvey={this.handleUpdateSurvey}
+                    getSubdomain={this.getSubdomain}
                   /> :
                   <Row style={{ justifyContent: "center" }}>
                     {/* <LoginButton /> */}
