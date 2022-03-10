@@ -75,11 +75,37 @@ class App extends Component {
         await axios(axiosRequestConfig);
         const updatedSurveys = this.state.surveyData.filter((survey) => survey._id !== id);
         this.setState({ surveyData: updatedSurveys });
-
+        
       } catch (error) {
         console.error("Delete error: " + error);
         this.setState({ error: true });
       }
+    }
+  }
+
+  handleUpdateSurvey = async (surveyToUpdate) =>{
+    try{
+      if (this.props.auth0.isAuthenticated) {
+        const tokenResponse = await this.props.auth0.getIdTokenClaims();
+        const jwt = tokenResponse.__raw;
+        console.log("survey", surveyToUpdate._id )
+        const axiosRequestConfig = {
+          method: 'put',
+          baseURL: process.env.REACT_APP_SERVER_URL,
+          url: `/survey/${surveyToUpdate._id}`,
+          headers: { "Authorization": `Bearer ${jwt}` },
+          data: surveyToUpdate
+        }
+        let createdSurvey = await axios(axiosRequestConfig);
+        this.setState({
+          activeSurvey: createdSurvey.data
+        })
+        console.log("test for update")
+        this.getSavedSurvey()
+      }
+    }catch(error){
+      console.log(error, 'Error with updating the survey');
+
     }
   }
 
@@ -133,11 +159,8 @@ class App extends Component {
         url: `/survey/create`,
         headers: { "Authorization": `Bearer ${jwt}` },
         params: { subDomain, surveyID, surveyName }
-
       }
-
       try {
-
         await axios(axiosRequestConfig);
         this.getActiveSurvey();
       } catch (error) {
@@ -157,7 +180,6 @@ class App extends Component {
             url: `/active`,
             headers: { "Authorization": `Bearer ${jwt}` }
         }
-        // const url = `${process.env.REACT_APP_SERVER_URL}/active`
         try {
             const activeSurvey = await axios(axiosRequestConfig);
             this.setState({ activeSurvey: activeSurvey.data });
@@ -172,20 +194,16 @@ class App extends Component {
     if (this.props.auth0.isAuthenticated) {
       const tokenResponse = await this.props.auth0.getIdTokenClaims();
       const jwt = tokenResponse.__raw;
-
       this.state.activeSurvey.active = false;
-
       const axiosRequestConfig = {
         method: 'post',
         baseURL: process.env.REACT_APP_SERVER_URL,
         url: `/survey`,
         data: this.state.activeSurvey,
         headers: { "Authorization": `Bearer ${jwt}` }
-
       }
 
       try {
-
         await axios(axiosRequestConfig);
         this.getActiveSurvey();
       } catch (error) {
@@ -237,6 +255,7 @@ class App extends Component {
                     surveyIdList={this.state.surveyIdList}
                     handleSelectedSurvey={this.handleSelectedSurvey}
                     insertSurveyToDb={this.insertSurveyToDb}
+                    handleUpdateSurvey={this.handleUpdateSurvey}
                   /> :
                   <Row style={{ justifyContent: "center" }}>
                     {/* <LoginButton /> */}

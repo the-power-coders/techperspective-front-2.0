@@ -1,12 +1,9 @@
 import React from 'react';
 import { Form, Button} from 'react-bootstrap';
 
-
-
-
 class CreateSurveyForm extends React.Component {
   handleSubmit = (event) => {
-     this.props.insertSurveyToDb(event);
+    this.props.insertSurveyToDb(event);
   }
 
   render () {
