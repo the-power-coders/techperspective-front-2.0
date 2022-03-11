@@ -7,7 +7,6 @@ import { withAuth0 } from '@auth0/auth0-react';
 class SurveyDropdown extends React.Component {
   render() {
     let subDomain = this.props.getSubdomain(this.props.auth0.user.email);
-    console.log("this is survey id list dropdown",this.props.surveyIdList);
     return (
       //check react-bootstrap docs for dropdown implementation
       <Container>

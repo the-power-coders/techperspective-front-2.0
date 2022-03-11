@@ -13,9 +13,6 @@ class ActiveSurveyContainer extends Component {
         }
     }
 
-    //be able to close the create survey form
-    handleCloseCreateSurvey
-
     componentDidMount() {
         this.props.getActiveSurvey();
     }
