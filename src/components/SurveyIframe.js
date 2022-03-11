@@ -16,8 +16,8 @@ export default class SurveyIframe extends Component {
       <div>
         
       <Card>
-          {this.props.activeSurvey && <Iframe
-            url={`https://www.jotform.com/form/${this.props.activeSurvey.surveyID}`}
+          {this.props.formId && <Iframe
+        url={`https://www.jotform.com/form/${this.props.formId}`}
 
             width="100%"
             height="500px"
