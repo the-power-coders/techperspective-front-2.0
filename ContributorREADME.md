@@ -62,11 +62,90 @@ Matt: I am super excited and anxious at the same time. Really want to get my han
 
 Matt and Nic:
 
-- Completed sort function using the Auth0 props to the all get methods.
-- Created a subdomain function to filter email address by their subdomain.
-- Added that to where it was required.
+- [ ] Completed sort function using the Auth0 props to the all get methods.
+- [ ] Created a subdomain function to filter email address by their subdomain.
+- [ ] Added that to where it was required.
 Added logout button to header.
 
 Tanner and Brian:
 
-- Added post route.
+- [ ] Added post route.
+
+### Morning Standup Wednesday, March 9, 2022
+
+- [ ] Create survey unique. Need to make a post request that contains the admins input and add that to the database.
+  It will change the active survey.
+- [ ] Drop down, active survey box, that will bea ble to edit notes and delete surveys. Cleans up the interface. Edit ability will be on the notes.
+- [ ] Delete button, Will need be an update route, you can create or remove.
+
+Generale notes and ToDos:
+
+Click on drop down, a list of active surveys. SHow surveys, that what the dropdown is populating. Templates, are survey ids.
+
+Editing the data of active survey shall be in the.
+
+In active survey handle notes. Only for note Crud.
+
+Notes will be added in the accordion for archived survey.
+If there is time add notes to active survey.
+
+Delete will be in the archived survey in the accordion.
+
+Questions to be yes or no or true and false.
+
+Get Brooks `jotform` auth and ask if we can change the chart to be more digestible.  
+
+We can add second screen to show aggregated data.
+
+Brian: Pointed out 'chart.js' and what was in it for us to look at and see how we can improve it. NICE FIND!
+
+Matt: Thought that occurred to me, I really need to solidify
+
+Tanner: Blockers out of the way, tasks for the day is pretty light. Tanner will be navigating again. Suggesting to break up notes. Stretch for tomorrow Thursday
+
+Nic: Wanted to get aligned again with what the plan was and see it on a drawing.
+
+#### *Reminder: About me*
+
+### Evening Standup Wednesday, March 9, 2022
+
+Completed delete modal with a safety check
+
+Added a footer and an about us link to the page.
+included an admin login to the header with the function
+
+Finished survey to the add survey form. The form box to create the survey.
+Finished the drop down.
+
+Implemented update route for notes. Added notes to schema and built the update route.
+
+- [X] Front END DEPLOYED!
+
+### Reminders/Todo's
+
+- [ ] Fixing the things we need to fix.
+- [ ] Input about us.
+- [ ] Debug the dropdown
+- [ ] Finish notes frontend method
+- [ ] Fix labeling on the chart
+- [ ] Color the chart
+
+### Morning Standup Thursday, March 10, 2022
+
+- [ ] Fixing the things we need to fix.
+- [ ] Input about us.
+- [ ] Debug the dropdown
+- [ ] Finish notes frontend method
+- [ ] Fix labeling on the chart
+- [ ] Color the chart
+
+Brian:
+
+Attention to dropdown, looking at stretch goals after that if dropdown
+
+Tanner: Notes route, at the moment we can only affect the active survey notes.
+Got the form set up and data.
+Update method.
+
+Nicholas: Dropdown is doing interesting things and not understanding how to do these.
+
